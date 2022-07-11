@@ -24,7 +24,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   deploymentBucket:
-    name: ocs-serverless_framework-${opt:stage}-deploy
+    name: ocs-serverless-framework-${opt:stage}-deploy
 
 # you can overwrite defaults here
 #  stage: dev
