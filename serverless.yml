@@ -13,7 +13,7 @@
 
 service: my-lambda-function
 # app and org for use with dashboard.serverless.com
-app: ocs-demo
+app: my-lambda-function
 org: lramirez
 
 # You can pin your service to only deploy with a specific Serverless version
