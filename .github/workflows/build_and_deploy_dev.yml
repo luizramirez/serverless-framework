@@ -37,8 +37,7 @@ jobs:
         #AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Deploy
       id: deploy
-      if: steps.install_test.outcome == 'failure'
-      run: exit 1
+      if: steps.install_test.outcome == 'success'
       uses: serverless/github-action@v3.1
       with:
         #args: -c "serverless plugin install --name serverless-deployment-bucket && serverless remove --stage dev --region us-west-2 --verbose"
