@@ -1,4 +1,4 @@
-name: Deploy main branch
+name: Deploy develop branch
 
 on:
   push:
@@ -12,10 +12,14 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
+    env:
+      ENV_STAGE: dev
     strategy:
       matrix:
         node-version: [16.x]
     steps:
+    - if: ${{ env.ENV_STAGE == 'dev '}}
+      run: echo "This step its only executed for dev"
     - name: Code Checkout
       uses: actions/checkout@v3
     - name: Install Plugin and Deploy
