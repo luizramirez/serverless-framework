@@ -18,7 +18,7 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-    - if: ${{ env.ENV_STAGE == 'dev '}}
+    - if: ${{ env.ENV_STAGE == 'dev'}}
       run: echo "This step its only executed for dev"
     - name: Code Checkout
       uses: actions/checkout@v3
