@@ -23,6 +23,8 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs12.x
+  deploymentBucket:
+    name: ocs-serverless-framework-${opt:stage}-deploy
 
 # you can overwrite defaults here
 #  stage: dev
@@ -115,3 +117,5 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+plugins:
+  - serverless-deployment-bucket
