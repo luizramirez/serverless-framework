@@ -29,7 +29,7 @@ provider:
     apiKeys:
       - value: ${ssm(us-west-2):ocs-${opt:stage}}
 
-# you can overwrite defaults here
+#  you can overwrite defaults here
 #  stage: dev
   region: us-west-2
 
