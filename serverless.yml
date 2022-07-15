@@ -9,7 +9,7 @@
 # For full config options, check the docs:
 #    docs.serverless.com
 #
-# Happy Coding OCS!
+# Happy Coding OCS!!!
 
 service: my-lambda-function
 # app and org for use with dashboard.serverless.com
@@ -25,10 +25,20 @@ provider:
   runtime: nodejs12.x
   deploymentBucket:
     name: ocs-serverless-framework-${opt:stage}-deploy
+  apiGateway:
+    apiKeys:
+      - value: ${ssm(us-west-2):ocs-${opt:stage}}
 
-# you can overwrite defaults here
+#  you can overwrite defaults here
 #  stage: dev
   region: us-west-2
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  dev:
+    path: dev
+  prod:
+    path: prod
 
 # you can add statements to the Lambda function's IAM Role here
 #  iam:
@@ -68,8 +78,9 @@ functions:
 #    Check the event documentation for details
     events:
         - http:
-            path: /hello
+            path: /${self:custom.${self:custom.stage}.path}
             method: get
+            private: true
 #      - httpApi:
 #          path: /users/create
 #          method: get

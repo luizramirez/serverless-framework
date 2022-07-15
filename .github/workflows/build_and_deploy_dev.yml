@@ -1,4 +1,4 @@
-name: Deploy main branch
+name: Deploy develop branch
 
 on:
   push:
@@ -12,22 +12,36 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
+    env:
+      ENV_STAGE: dev
     strategy:
       matrix:
         node-version: [16.x]
     steps:
+    - if: ${{ env.ENV_STAGE == 'dev'}}
+      run: echo "This step its only executed for dev"
     - name: Code Checkout
       uses: actions/checkout@v3
-    - name: Install Plugin and Deploy
-      id: install
+    - name: Install Plugin and Test
+      id: install_test
       #if: github.event_name == 'pull_request'
       uses: serverless/github-action@v3.1
       with:
         #args: -c "serverless plugin install --name serverless-deployment-bucket && serverless remove --stage dev --region us-west-2 --verbose"
-        args: -c "serverless plugin install --name serverless-deployment-bucket && serverless invoke local --function hello --stage dev && sls deploy --stage dev --region us-west-2 --verbose"
+        args: -c "serverless plugin install --name serverless-deployment-bucket && serverless invoke local --function hello --stage dev"
         entrypoint: /bin/sh
       env:
         SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
         # or if using AWS credentials directly
         #AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         #AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Deploy
+      id: deploy
+      if: steps.install_test.outcome == 'success'
+      uses: serverless/github-action@v3.1
+      with:
+        #args: -c "serverless plugin install --name serverless-deployment-bucket && serverless remove --stage dev --region us-west-2 --verbose"
+        args: -c "sls deploy --stage dev --region us-west-2 --verbose"
+        entrypoint: /bin/sh
+      env:
+        SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
