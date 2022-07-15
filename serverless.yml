@@ -25,10 +25,19 @@ provider:
   runtime: nodejs12.x
   deploymentBucket:
     name: ocs-serverless-framework-${opt:stage}-deploy
+  apiGateway:
+    apiKeys:
+      - value: ${ssm(us-west-2):ocs-${opt:stage}}
 
 # you can overwrite defaults here
 #  stage: dev
   region: us-west-2
+
+custom:
+  dev:
+    path: dev
+  prod:
+    path: prod
 
 # you can add statements to the Lambda function's IAM Role here
 #  iam:
@@ -68,7 +77,7 @@ functions:
 #    Check the event documentation for details
     events:
         - http:
-            path: /hello
+            path: /${self:custom.${self:custom.stage}.path}
             method: get
 #      - httpApi:
 #          path: /users/create
