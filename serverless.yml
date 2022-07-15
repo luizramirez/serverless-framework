@@ -80,6 +80,7 @@ functions:
         - http:
             path: /${self:custom.${self:custom.stage}.path}
             method: get
+            private: true
 #      - httpApi:
 #          path: /users/create
 #          method: get
