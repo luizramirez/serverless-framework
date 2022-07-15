@@ -36,9 +36,9 @@ provider:
 custom:
   stage: ${opt:stage, self:provider.stage}
   dev:
-    path: dev
+    path: hello
   prod:
-    path: prod
+    path: hi
 
 # you can add statements to the Lambda function's IAM Role here
 #  iam:
