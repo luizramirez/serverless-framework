@@ -1,3 +1,4 @@
+---
 name: Testing actions
 
 on: [push]
@@ -19,6 +20,6 @@ jobs:
           echo $GITHUB_WORKSPACE
           echo "${{ github.token }}"
       - id: github_sha
-        run: echo "github_sha=${{GITHUB_SHA}}" >> "$GITHUB_OUTPUT"
+        run: echo "github_sha=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
       - id: github_token
         run: echo "github_token=${{ github.token }}" >> "$GITHUB_OUTPUT"
