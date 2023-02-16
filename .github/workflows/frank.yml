@@ -1,3 +1,7 @@
+name: Testing actions
+
+on: [push]
+
 jobs:
   get_environmets:
     name: Get Environments
