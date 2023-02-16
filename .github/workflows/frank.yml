@@ -1,0 +1,16 @@
+jobs:
+  get_environmets:
+    name: Get Environments
+    runs-on: ubuntu-latest
+    outputs:
+      github_sha: ${{ steps.github_sha.outputs.github_sha }}
+      github_token: ${{ steps.github_token.outputs.github_token }}
+    steps:
+      - name: Get Environment values
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "${{ github.token }}"
