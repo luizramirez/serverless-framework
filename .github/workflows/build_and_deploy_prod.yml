@@ -3,7 +3,7 @@ name: Deploy main branch
 on:
   push:
     branches:
-      - main
+      - develop
   #release:
   #  types: [published]
   #pull_request:
