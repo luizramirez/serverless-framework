@@ -23,3 +23,11 @@ jobs:
         run: echo "github_sha=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
       - id: github_token
         run: echo "github_token=${{ github.token }}" >> "$GITHUB_OUTPUT"
+  set_commit_status:
+    runs-on: ubuntu-latest
+    needs: get_environmets
+    steps:
+      - env:
+          GITHUB_SHA: ${{needs.get_environmets.outputs.github_sha}}
+          GITHUB_TOKEN: ${{needs.get_environmets.outputs.github_token}}
+        run: echo "$GITHUB_SHA $GITHUB_TOKEN"
